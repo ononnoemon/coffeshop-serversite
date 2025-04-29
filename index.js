@@ -56,7 +56,7 @@ async function run() {
         res.send(result)
     })
     
-    app.put('/coffees/:id',async (res,req) => {
+    app.put('/coffees/:id',async (req,res) => {
       const id=req.params.id
       const coffee=req.body
       const filter={_id:new ObjectId(id)}
