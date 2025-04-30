@@ -28,16 +28,16 @@ async function run() {
     await client.connect();
 
     const database=client.db('coffees')
-    const usersCollection=database.collection('coffee')
+    const coffeeCollection=database.collection('coffee')
 
     app.post('/coffees',async (req,res) => {
         const coffee=req.body
-          const result=await usersCollection.insertOne(coffee)
+          const result=await coffeeCollection.insertOne(coffee)
           res.send(result)
     })
 
     app.get('/coffees',async (req,res) => {
-        const cursor=usersCollection.find()
+        const cursor=coffeeCollection.find()
         const result=await cursor.toArray()
         res.send(result)
     })
@@ -45,14 +45,14 @@ async function run() {
     app.delete('/coffees/:id',async(req,res)=>{
         const id=req.params.id
         const query={_id:new ObjectId(id)}
-        const result=await usersCollection.deleteOne(query)
+        const result=await coffeeCollection.deleteOne(query)
         res.send(result)
     })
 
     app.get('/coffees/:id',async (req,res) => {
         const id=req.params.id
         const quer={_id:new ObjectId(id)}
-        const result=await usersCollection.findOne(quer)
+        const result=await coffeeCollection.findOne(quer)
         res.send(result)
     })
     
@@ -71,9 +71,23 @@ async function run() {
          photo:coffee.photo   
       }
       }
-      const result=await usersCollection.updateOne(filter,updatedUser,option)
+      const result=await coffeeCollection.updateOne(filter,updatedUser,option)
       res.send(result)
     })
+    //user related APIs
+   // const database=client.db('coffees')
+    const userCollection=database.collection('users')
+
+    app.post('/users',async (req,res) => {
+      const coffee=req.body
+        const result=await userCollection.insertOne(coffee)
+        res.send(result)
+  })
+  app.get('/users',async (req,res) => {
+    const cursor=userCollection.find()
+    const result=await cursor.toArray()
+    res.send(result)
+})
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
