@@ -8,7 +8,18 @@ const port = process.env.PORT || 3000
 
 const { MongoClient, ServerApiVersion,ObjectId } = require('mongodb');
 
-app.use(cors())
+// app.use(cors({
+//   origin: 'http://localhost:5173', 
+//   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'], 
+//   credentials: true 
+// }));
+app.use(cors({
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
+
+//app.use(cors());
 app.use(express.json())
 
 console.log(process.env.DB_USER)
@@ -94,6 +105,17 @@ app.delete('/users/:id',async (req,res) => {
         const query={_id:new ObjectId(id)}
         const result=await userCollection.deleteOne(query)
         res.send(result)
+})
+app.put('/users',async (req,res) => {
+  const email=req.body.email
+  const filter={email}
+  const updatedDoc={
+    $set:{
+      lastSignInTime:req.body.lastSignInTime
+    }
+  }
+  const result=await userCollection.updateOne(filter,updatedDoc)
+  res.send(result)
 })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
