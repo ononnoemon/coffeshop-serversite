@@ -51,6 +51,7 @@ async function run() {
         const cursor=coffeeCollection.find()
         const result=await cursor.toArray()
         res.send(result)
+        // res.send(result)
     })
    
     app.delete('/coffees/:id',async(req,res)=>{
