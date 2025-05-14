@@ -45,13 +45,14 @@ async function run() {
         const coffee=req.body
           const result=await coffeeCollection.insertOne(coffee)
           res.send(result)
+          // res.send(result)
     })
 
     app.get('/coffees',async (req,res) => {
         const cursor=coffeeCollection.find()
         const result=await cursor.toArray()
         res.send(result)
-        // res.send(result)
+        
     })
    
     app.delete('/coffees/:id',async(req,res)=>{
