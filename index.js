@@ -44,8 +44,7 @@ async function run() {
     app.post('/coffees',async (req,res) => {
         const coffee=req.body
           const result=await coffeeCollection.insertOne(coffee)
-          res.send(result)
-          // res.send(result)   
+          res.send(result) 
     })
 
     app.get('/coffees',async (req,res) => {
