@@ -128,7 +128,9 @@ app.put('/users',async (req,res) => {
   //  await client.close();
   }
 }
-run().catch(console.dir);
+
+//run().catch(console.dir);
+//end
 
 app.get('/', (req, res) => {
     res.send('Hello Second Server!')
