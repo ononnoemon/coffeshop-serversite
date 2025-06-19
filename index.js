@@ -1,4 +1,4 @@
-//coffer shop
+//coffer shop project
 const express = require('express')
 const cors = require('cors')
 
